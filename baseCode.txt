@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+
+class MyCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final String imageUrl;
+  final String buttonText;
+  final Function buttonAction;
+
+  MyCard({
+    required this.title,
+    required this.description,
+    required this.imageUrl,
+    required this.buttonText,
+    required this.buttonAction,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          Image.asset(imageUrl),
+          ListTile(
+            title: Text(title),
+            subtitle: Text(description),
+          ),
+          ButtonBar(
+            children: [
+              FlatButton(
+                child: Text(buttonText),
+                onPressed: buttonAction,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import 'dart:convert';
+import 'package:flutter/material.dart';
+
+class CardInfo {
+  final String title;
+  final String description;
+  final String imageUrl;
+  final String buttonText;
+  final String buttonAction;
+
+  CardInfo({
+    required this.title,
+    required this.description,
+    required this.imageUrl,
+    required this.buttonText,
+    required this.buttonAction,
+  });
+
+  factory CardInfo.fromJson(Map<String, dynamic> json) {
+    return CardInfo(
+      title: json['title'],
+      description: json['description'],
+      imageUrl: json['imageUrl'],
+      buttonText: json['buttonText'],
+      buttonAction: json['buttonAction'],
+    );
+  }
+}
+
+void main() {
+  // Ler o arquivo JSON
+  String jsonString = // ler o conteúdo do arquivo JSON
+  List<dynamic> jsonList = jsonDecode(jsonString);
+  List<CardInfo> cards = jsonList.map((json) => CardInfo.fromJson(json)).toList();
+
+  runApp(MyApp(cards: cards));
+}
+
+class MyApp extends StatelessWidget {
+  final List<CardInfo> cards;
+
+  MyApp({required this.cards});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'My App',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body: ListView.builder(
+          itemCount: cards.length,
+          itemBuilder: (BuildContext context, int index) {
+            return MyCard(
+              title: cards[index].title,
+              description: cards[index].description,
+              imageUrl: cards[index].imageUrl,
+              buttonText: cards[index].buttonText,
+              buttonAction: () => print(cards[index].buttonAction),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
