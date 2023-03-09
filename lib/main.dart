@@ -3,7 +3,7 @@ import 'dart:convert';
 
 void main() {
   String jsonString = 
-  List<dynamic> jsonList = jsonDecode(jsonString)
+  List<dynamic> jsonList = jsonDecode(jsonString);
   runApp(AppOLX());
 }
 
