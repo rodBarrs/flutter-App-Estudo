@@ -11,7 +11,9 @@ class AppOLX extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'OLX Leal',
-      home: Scaffold(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
           appBar: AppBar(
             title: Text('OLX LEAL'),
             centerTitle: true,
@@ -22,64 +24,136 @@ class AppOLX extends StatelessWidget {
               IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
             ],
             leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
+            bottom: const TabBar(tabs: <Widget>[
+              Tab(
+                child: Text('Região de...'),
+              ),
+              Tab(
+                child: Text('Categoria'),
+              ),
+              Tab(
+                child: Text('Filtro'),
+              )
+            ]),
           ),
-          body: SizedBox(
-            height: 100,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                          right: BorderSide(
-                        color: Colors.grey,
-                        width: 2,
-                      ))),
-                  width: 160.0,
-                  child: const Center(
-                      child: Text(
-                    'Região de Venda',
-                    style: TextStyle(fontSize: 20, color: Colors.purple),
-                  )),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                          right: BorderSide(
-                        color: Colors.grey,
-                        width: 2,
-                      ))),
-                  width: 160.0,
-                  child: const Center(
-                      child: Text(
-                    'Categoria',
-                    style: TextStyle(fontSize: 20, color: Colors.purple),
-                  )),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                          right: BorderSide(
-                        color: Colors.grey,
-                        width: 2,
-                      ))),
-                  width: 160.0,
-                  child: const Center(
-                      child: Text(
-                    'Filtro',
-                    style: TextStyle(fontSize: 20, color: Colors.purple),
-                  )),
-                ),
+          body: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Card(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Row(
+                          children: [
+                            Image.network(
+                              'https://docs.flutter.dev/assets/images/dash/Dash.png',
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: const [
+                                  Text(
+                                    'Card 1',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Descrição 1',
+                                    style: TextStyle(
+                                      fontSize: 23,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Hora',
+                                    style: TextStyle(),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Card(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Row(
+                          children: [
+                            Image.network(
+                              'https://m.media-amazon.com/images/I/815bYNT+p8L._AC_SX425_.jpg',
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                            const Expanded(
+                              child: Text('Descrição do card',
+                                  textAlign: TextAlign.center),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Card(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Row(
+                          children: [
+                            Image.network(
+                              'https://images.unsplash.com/photo-1618401479427-c8ef9465fbe1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1143&q=80',
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                            const Expanded(
+                              child: Text('Descrição do card',
+                                  textAlign: TextAlign.center),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ))
               ],
             ),
-            child: Container(
-          color: Colors.grey[200], // cor de fundo
-          child: AnunciosList(), // lista de anúncios
-        ), 
-          )),
+          ),
+          // ignore: prefer_const_constructors
+
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.orange,
+            onPressed: () {},
+            child: Stack(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.orange,
+                  ),
+                ),
+                Column(children: const [
+                  Icon(Icons.camera_alt),
+                  Text('Anuncie aqui'),
+                ])
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
