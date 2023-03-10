@@ -43,18 +43,21 @@ class AppOLX extends StatelessWidget {
                     child: ListView(
                   children: [
                     buildCard(
+                      context,
                       'https://docs.flutter.dev/assets/images/dash/Dash.png',
                       'Mascote pelúcia Dart',
                       'R\$ 94.452,33',
                       '05 December 00:40, Jardim Verão',
                     ),
                     buildCard(
+                      context,
                       'https://m.media-amazon.com/images/I/815bYNT+p8L._AC_SX425_.jpg',
                       'Mascote pelúcia PHP',
                       'R\$ 2,24',
                       '21 de Maio 15:24, Cidade Nova 8',
                     ),
                     buildCard(
+                      context,
                       'https://images.unsplash.com/photo-1618401479427-c8ef9465fbe1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1143&q=80',
                       'Mascote pelúcia GitHub',
                       'R\$ 120,17',
@@ -124,46 +127,94 @@ class Anuncio {
       };
 }
 
-Widget buildCard(String imageUrl, String descricao, String preco, String dataHoraLocal) {
+Widget buildCard(BuildContext context, imageUrl, String descricao, String preco, String dataHoraLocal) {
   return Padding(
     padding: const EdgeInsets.all(5),
-    child: Card(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-      ),
-      child: Row(
-        children: [
-          Image.network(
-            imageUrl,
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Text(
-                  descricao,
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                ),
-                Text(
-                  preco,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 23,
-                  ),
-                ),
-                Text(
-                  dataHoraLocal,
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ],
+    child: InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => PageNova()),
+        );
+      },
+      child: Card(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
+        child: Row(
+          children: [
+            Image.network(
+              imageUrl,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
             ),
-          ),
-        ],
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    descricao,
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  Text(
+                    preco,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 23,
+                    ),
+                  ),
+                  Text(
+                    dataHoraLocal,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     ),
   );
+}
+
+class PageNova extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('OLX Rodrigo'),
+        centerTitle: true,
+        backgroundColor: Colors.purple,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+        ],
+        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
+        bottom: const TabBar(tabs: <Widget>[
+          Tab(
+            child: Text('Região de...'),
+          ),
+          Tab(
+            child: Text('Categoria'),
+          ),
+          Tab(
+            child: Text('Filtro'),
+          )
+        ]),
+      ),
+      body: Center(
+        child: Row(
+          children: [
+            Image.network(
+              'https://docs.flutter.dev/assets/images/dash/Dash.png',
+              width: 100,
+              height: 100,
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
