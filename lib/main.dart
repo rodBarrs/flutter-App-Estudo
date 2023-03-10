@@ -10,30 +10,16 @@ class AppOLX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-<<<<<<< HEAD
-      home: DefaultTabController(
-        initialIndex: 1,
-        length: 3,
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text('OLX LEAL'),
-              centerTitle: true,
-              backgroundColor: Colors.purple,
-              actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-=======
       title: 'OLX Leal',
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: Text('OLX LEAL'),
+            title: Text('OLX Rodrigo'),
             centerTitle: true,
             backgroundColor: Colors.purple,
             actions: [
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
               IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
             ],
             leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
@@ -56,89 +42,23 @@ class AppOLX extends StatelessWidget {
                 Expanded(
                     child: ListView(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Card(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: Row(
-                          children: [
-                            Image.network(
-                              'https://docs.flutter.dev/assets/images/dash/Dash.png',
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: const [
-                                  Text(
-                                    'Card 1',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Descrição 1',
-                                    style: TextStyle(
-                                      fontSize: 23,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Hora',
-                                    style: TextStyle(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    buildCard(
+                      'https://docs.flutter.dev/assets/images/dash/Dash.png',
+                      'Mascote pelúcia Dart',
+                      'R\$ 94.452,33',
+                      '05 December 00:40, Jardim Verão',
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Card(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: Row(
-                          children: [
-                            Image.network(
-                              'https://m.media-amazon.com/images/I/815bYNT+p8L._AC_SX425_.jpg',
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            const Expanded(
-                              child: Text('Descrição do card',
-                                  textAlign: TextAlign.center),
-                            ),
-                          ],
-                        ),
-                      ),
+                    buildCard(
+                      'https://m.media-amazon.com/images/I/815bYNT+p8L._AC_SX425_.jpg',
+                      'Mascote pelúcia PHP',
+                      'R\$ 2,24',
+                      '21 de Maio 15:24, Cidade Nova 8',
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Card(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: Row(
-                          children: [
-                            Image.network(
-                              'https://images.unsplash.com/photo-1618401479427-c8ef9465fbe1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1143&q=80',
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            const Expanded(
-                              child: Text('Descrição do card',
-                                  textAlign: TextAlign.center),
-                            ),
-                          ],
-                        ),
-                      ),
+                    buildCard(
+                      'https://images.unsplash.com/photo-1618401479427-c8ef9465fbe1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1143&q=80',
+                      'Mascote pelúcia GitHub',
+                      'R\$ 120,17',
+                      '05 dezembro 21:12, Icoaraci',
                     ),
                   ],
                 ))
@@ -162,30 +82,8 @@ class AppOLX extends StatelessWidget {
                   Icon(Icons.camera_alt),
                   Text('Anuncie aqui'),
                 ])
->>>>>>> 231850e6ea4b18eeaaf899bed457ecdaa95889b9
               ],
-              leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
-              bottom: const TabBar(
-                tabs: <Widget>[
-                  Tab(
-                    child: Text(
-                      'Região de...',
-                    ),
-                  ),
-                  Tab(
-                    child: Text('Categoria'),
-                  ),
-                  Tab(
-                    child: Text('Filtro'),
-                  )
-                ],
-              ),
             ),
-<<<<<<< HEAD
-            body: SizedBox(
-              height: 100,
-            )),
-=======
           ),
         ),
       ),
@@ -198,16 +96,14 @@ class Anuncio {
   final String imagemURL;
   final String descricao;
   final String valor;
-  final String dataEHora;
-  final String local;
+  final String dataHoraLocal;
 
   Anuncio({
     required this.id,
     required this.imagemURL,
     required this.descricao,
     required this.valor,
-    required this.dataEHora,
-    required this.local,
+    required this.dataHoraLocal,
   });
 
   factory Anuncio.fromJson(Map<String, dynamic> json) {
@@ -216,38 +112,58 @@ class Anuncio {
       imagemURL: json['imagemURL'],
       descricao: json['descricao'],
       valor: json['valor'],
-      dataEHora: json['dataEHora'],
-      local: json['local'],
+      dataHoraLocal: json['dataHoraLocal'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'imagemURL': imagemURL,
+        'descricao': descricao,
+        'valor': valor,
+        'dataHoraLocal': dataHoraLocal,
+      };
 }
 
-Future<List<Anuncio>> carregarAnuncios() async {
-  final response = await rootBundle.loadString('lib/anuncios.json');
-
-  final List<dynamic> json = jsonDecode(response);
-  return json.map((e) => Anuncio.fromJson(e)).toList();
-}
-
-class AnuncioCard extends StatelessWidget {
-  final Anuncio anuncio;
-
-  const AnuncioCard({Key? key, required this.anuncio}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Column(
+Widget buildCard(String imageUrl, String descricao, String preco, String dataHoraLocal) {
+  return Padding(
+    padding: const EdgeInsets.all(5),
+    child: Card(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+      child: Row(
         children: [
-          Image.network(anuncio.imagemURL),
-          ListTile(
-            title: Text(anuncio.descricao),
-            subtitle: Text('${anuncio.valor} - ${anuncio.dataEHora}'),
-            trailing: Text(anuncio.local),
+          Image.network(
+            imageUrl,
+            width: 100,
+            height: 100,
+            fit: BoxFit.cover,
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Text(
+                  descricao,
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+                Text(
+                  preco,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 23,
+                  ),
+                ),
+                Text(
+                  dataHoraLocal,
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
           ),
         ],
->>>>>>> 231850e6ea4b18eeaaf899bed457ecdaa95889b9
       ),
-    );
-  }
+    ),
+  );
 }
