@@ -5,13 +5,12 @@
         "descricao": "Pelúcia Mascote Dart",
         "valor": "R$ 4999,00",
         "dataHoraLocal": "05 de Dezembro 00:40, Icoaraci"
-    }
-]   
+    },
     {
-    "id": 2,
-    "imagemURL": "https://webemax.co.uk/wp-content/uploads/2019/08/PHP-AND-LARAVEL.jpg",
-    "descricao": "Pelúcia Mascote PHP",
-    "valor": "R$ 4,10",
-    "dataHoraLocal": "23 de Fevereiro 14:22, Catanheira"
-}
+        "id": 2,
+        "imagemURL": "https://webemax.co.uk/wp-content/uploads/2019/08/PHP-AND-LARAVEL.jpg",
+        "descricao": "Pelúcia Mascote PHP",
+        "valor": "R$ 4,10",
+        "dataHoraLocal": "23 de Fevereiro 14:22, Catanheira"
+    }
 ]
