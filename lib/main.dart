@@ -10,10 +10,14 @@ void main() {
 class AppOLX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    File file = File('lib/anuncios.json');
-    String jsonString = file.readAsStringSync();
-    List<dynamic> jsonList = json.decode(jsonString);
+    String jsonString = "";
 
+    Future<void> loadJsonData() async {
+      String jsonString = await rootBundle.loadString('assets/anuncios.json');
+     
+    }
+    List<dynamic> jsonList = json.decode(jsonString);
+    loadJsonData();
     List<Anuncio> anuncios = [];
     for (var jsonMap in jsonList) {
       Anuncio anuncio = Anuncio.fromJson(jsonMap);
@@ -42,7 +46,8 @@ class AppOLX extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Colors.purple,
             actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+              IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
               IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
             ],
             leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
