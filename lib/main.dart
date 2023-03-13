@@ -10,16 +10,19 @@ void main() {
 class AppOLX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    File file = File('lib/anuncios.json');
-    String jsonString = file.readAsStringSync();
-    List<dynamic> jsonList = json.decode(jsonString);
+    String jsonString = "";
 
-    List<Anuncio> anuncios = [];
-    for (var jsonMap in jsonList) {
-      Anuncio anuncio = Anuncio.fromJson(jsonMap);
-      anuncios.add(anuncio);
+    Future<String> _carregarJson() async {
+      return await rootBundle.loadString('assets/anuncios.json');
     }
 
+    Future<List<Anuncio>> _lerJson() async {
+      jsonString = await _carregarJson();
+      final lista = json.decode(jsonString) as List;
+      return lista.map((e) => Anuncio.fromJson(e)).toList();
+    }
+
+    List<Anuncio> anuncios = _lerJson() as List<Anuncio>;
     List<Widget> cards = []; // lista de widgets
 
     for (var i = 0; i < anuncios.length; i++) {
