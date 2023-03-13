@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
@@ -10,32 +9,47 @@ void main() {
 class AppOLX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String jsonString = "";
+    return MaterialApp(
+      title: 'OLX Leal',
+      home: AnunciosScreen(),
+    );
+  }
+}
 
-    Future<void> loadJsonData() async {
-      String jsonString = await rootBundle.loadString('assets/anuncios.json');
-     
-    }
-    List<dynamic> jsonList = json.decode(jsonString);
-    loadJsonData();
-    List<Anuncio> anuncios = [];
-    for (var jsonMap in jsonList) {
-      Anuncio anuncio = Anuncio.fromJson(jsonMap);
-      anuncios.add(anuncio);
-    }
+class AnunciosScreen extends StatefulWidget {
+  @override
+  _AnunciosScreenState createState() => _AnunciosScreenState();
+}
 
-    List<Widget> cards = []; // lista de widgets
+class _AnunciosScreenState extends State<AnunciosScreen> {
+  List<Anuncio> anuncios = [];
 
-    for (var i = 0; i < anuncios.length; i++) {
-      Anuncio anuncio = anuncios[i];
-      Widget card = buildCard(
-        anuncio,
-      );
-      cards.add(card);
-    }
+  @override
+  void initState() {
+    super.initState();
+    _lerJson();
+  }
 
-    Map<String, dynamic> jsonMap = json.decode(jsonString);
-    Anuncio anuncio = Anuncio.fromJson(jsonMap);
+  Future<String> _carregarJson() async {
+    return await rootBundle.loadString('assets/anuncios.json');
+  }
+
+  Future<void> _lerJson() async {
+    String jsonString = await _carregarJson();
+    final lista = json.decode(jsonString) as List;
+    setState(() {
+      anuncios = lista.map((e) => Anuncio.fromJson(e)).toList();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> cards = anuncios
+        .map(
+          (anuncio) => buildCard(anuncio),
+        )
+        .toList();
+
     return MaterialApp(
       title: 'OLX Leal',
       home: DefaultTabController(
