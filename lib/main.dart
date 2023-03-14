@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
@@ -46,7 +48,7 @@ class _AnunciosScreenState extends State<AnunciosScreen> {
   Widget build(BuildContext context) {
     List<Widget> cards = anuncios
         .map(
-          (anuncio) => buildCard(anuncio),
+          (anuncio) => buildCard(anuncio, context),
         )
         .toList();
 
@@ -147,9 +149,14 @@ class Anuncio {
       };
 }
 
-Widget buildCard(Anuncio anuncio) {
+Widget buildCard(Anuncio anuncio, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(5),
+    child:GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(
+          builder:(context) => DetalhesAnuncioScreen(anuncio: anuncio,),),);
+      },
     child: Card(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -187,6 +194,60 @@ Widget buildCard(Anuncio anuncio) {
           ),
         ],
       ),
+      ),
     ),
   );
+  
 }
+
+class DetalhesAnuncioScreen extends StatelessWidget {
+  final Anuncio anuncio;
+
+  DetalhesAnuncioScreen({required this.anuncio});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(anuncio.descricao),
+      ),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+              anuncio.imagemURL,
+              width: double.infinity,
+              height: 300,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: 20),
+            Text(
+              anuncio.descricao,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              anuncio.valor,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              anuncio.dataHoraLocal,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
